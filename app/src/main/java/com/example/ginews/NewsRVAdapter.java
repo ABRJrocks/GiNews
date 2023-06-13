@@ -28,26 +28,27 @@ public class NewsRVAdapter extends RecyclerView.Adapter<NewsRVAdapter.ViewHolder
     @Override
     public NewsRVAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.news_rv_item,parent,false);
-        return new NewsRVAdapter.ViewHolder(view);
+        return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull NewsRVAdapter.ViewHolder holder, int position) {
 
         Articles articles = articlesArrayList.get(position);
-        holder.subTitleTV.setText(articles.getDescription);
-        holder.titleTV.setText(articles.getTtile());
-        Picasso.get().load(articles.getUrlToImage).into(holder.newsTV);
+        holder.subTitleTV.setText(articles.getDescription());
+        holder.titleTV.setText(articles.getTitle());
+        Picasso.get().load(articles.getUrlToImage()).into(holder.newsIV);
         holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
-            public boolean onLongClick(View view) {
-                Intent intent = new Intent(context,NewsDetailActivity.class);
+            public boolean onLongClick(View v) {
+                Intent intent = new Intent(context, NewsDetailActivity.class);
                 intent.putExtra("title", articles.getTitle());
                 intent.putExtra("content", articles.getContent());
                 intent.putExtra("desc", articles.getDescription());
                 intent.putExtra("image", articles.getUrlToImage());
                 intent.putExtra("url", articles.getUrl());
                 context.startActivity(intent);
+                return true;
             }
         });
 
@@ -55,18 +56,19 @@ public class NewsRVAdapter extends RecyclerView.Adapter<NewsRVAdapter.ViewHolder
 
     @Override
     public int getItemCount() {
+
         return articlesArrayList.size();
     }
 
     public class ViewHolder  extends RecyclerView.ViewHolder{
 
-        private TextView titleTV,subTitleTV;
-        private ImageView newsTV;
+        private  TextView titleTV,subTitleTV;
+        private  ImageView newsIV;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             titleTV = itemView.findViewById(R.id.idTVNewsHeading);
             subTitleTV = itemView.findViewById(R.id.idTVSubTitle);
-            newsTV = itemView.findViewById(R.id.idIVNews);
+            newsIV = itemView.findViewById(R.id.idIVNews);
         }
     }
 }

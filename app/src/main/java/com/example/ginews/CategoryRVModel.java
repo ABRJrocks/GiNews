@@ -10,10 +10,12 @@ public class CategoryRVModel {
     }
 
     public void setCategory(String category) {
+
         this.category = category;
     }
 
     public String getCategoryImageUrl() {
+
         return categoryImageUrl;
     }
 
